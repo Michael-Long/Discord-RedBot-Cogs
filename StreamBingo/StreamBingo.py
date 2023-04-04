@@ -51,6 +51,7 @@ class StreamBingo(commands.Cog):
         self.config.register_member(**default_member)
 
     @commands.command()
+    @commands.is_owner()
     async def resetUserBingo(self, ctx, userID):
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):
@@ -92,6 +93,7 @@ class StreamBingo(commands.Cog):
         await ctx.send(ctx.author.mention + " Bingo Code: " + currCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
 
     @commands.command()
+    @commands.is_owner()
     async def updateCount(self, ctx):
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):
