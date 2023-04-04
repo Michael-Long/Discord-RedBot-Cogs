@@ -51,7 +51,7 @@ class StreamBingo(commands.Cog):
 
     @commands.command()
     @checks.mod_or_permissions(manage_messages=True)
-    async def resetUserBingo(self, ctx, userID):
+    async def resetuserbingo(self, ctx, userID):
         """Resets the bingo code for the given user via their ID"""
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):
@@ -95,7 +95,7 @@ class StreamBingo(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def updateCount(self, ctx):
+    async def updatecount(self, ctx):
         """Update the number of bingo squares are within the database"""
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):

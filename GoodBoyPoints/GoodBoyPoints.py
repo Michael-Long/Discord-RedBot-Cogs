@@ -18,7 +18,7 @@ class GoodBoyPoints(commands.Cog):
         self.config.register_member(**default_member)
 
     @commands.command()
-    async def givePoints(self, ctx, friend: discord.Member, points: int):
+    async def givepoints(self, ctx, friend: discord.Member, points: int):
         """Give points to a friend!"""
         if (friend.id == ctx.author.id):
             await ctx.send("You can't give yourself point, dingus.")
@@ -43,7 +43,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send(ctx.author.display_name + " gave " + friend.display_name + " " + str(points) + " Good Boy Points!" + extraText)
 
     @commands.command()
-    async def checkPoints(self, ctx, user: discord.Member = None):
+    async def checkpoints(self, ctx, user: discord.Member = None):
         """Check your own or someone else's Good Boy Points"""
         if (user == None):
             points = await self.config.member(ctx.author).GoodBoyPoints()
@@ -56,7 +56,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send(who + " Good Boy Points: " + str(points))
 
     @commands.command()
-    async def cashPoints(self, ctx, points: int):
+    async def cashpoints(self, ctx, points: int):
         """Cash in your good boy points"""
         yourPoints = await self.config.member(ctx.author).GoodBoyPoints()
         if (points > yourPoints):
@@ -65,3 +65,19 @@ class GoodBoyPoints(commands.Cog):
         remainingPoints = yourPoints - points
         await self.config.member(ctx.author).GoodBoyPoints.set(remainingPoints)
         await ctx.send(ctx.author.display_name + " has redeemed " + str(points) + " Good Boy Points! They have " + str(remainingPoints) + " left.")
+
+    @commands.command()
+    async def pointboard(self, ctx):
+        allPoints = await self.config.all_members(ctx.guild)
+        sortedPoints = dict(sorted(allPoints.items(), key=lambda item: item[1]))
+        board = ""
+        count = 1
+        for userID in sortedPoints:
+            user = await ctx.guild.fetch_member(userID)
+            board = board + str(count) + ": " + user.display_name + " - " + str(sortedPoints[userID]) + " Points\n"
+            count = count + 1
+            if (count > 5):
+                break
+        await ctx.send(board)
+
+
