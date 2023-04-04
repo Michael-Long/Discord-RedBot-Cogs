@@ -26,9 +26,7 @@ class StreamBingo(commands.Cog):
     ]
     count = 0
 
-    def __init__(self, bot):
-        self.bot = bot
-
+    def updateCount():
         # Query Bingo Database for Count
         countPayload = {'count': True}
         countRequest = requests.get('https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.php', params=countPayload)
@@ -38,7 +36,13 @@ class StreamBingo(commands.Cog):
         else:
             self.count = int(countRequest.text)
 
-        # Establish Connection to Database
+
+    def __init__(self, bot):
+        self.bot = bot
+
+        updateCount()
+
+        # Create Default Config
         self.config = Config.get_conf(self, identifier=7908234242)
         default_member = {
             "bingoCode": ""
@@ -86,3 +90,12 @@ class StreamBingo(commands.Cog):
                 break
             await self.config.member(ctx.author).bingoCode.set(currCode)
         await ctx.send(ctx.author.mention + " Bingo Code: " + currCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
+
+    @commands.command()
+    async def updateCount(self, ctx):
+        isOwner = await ctx.bot.is_owner(ctx.author)
+        if (not isOwner):
+            await ctx.send("You need proper permissions to run this command")
+            return
+        updateCount()
+        await ctx.send("Count updated to " + self.count + " bingo squares.")
