@@ -32,7 +32,7 @@ class GoodBoyPoints(commands.Cog):
         else:
             currPoints = await self.config.member(friend).GoodBoyPoints()
             await self.config.member(friend).GoodBoyPoints.set(currPoints + points)
-            await ctx.send(ctx.author.name + " gave " + friend.name + " " + str(points) + " Good Boy Points!")
+            await ctx.send(ctx.author.display_name + " gave " + friend.display_name + " " + str(points) + " Good Boy Points!")
 
     @commands.command()
     async def checkPoints(self, ctx, user: discord.Member = None):
@@ -42,7 +42,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send("Your Good Boy Points: " + str(points))
         else:
             points = await self.config.member(user).GoodBoyPoints()
-            await ctx.send(user.name + "'s Good Boy Points: " + str(points))
+            await ctx.send(user.display_name + "'s Good Boy Points: " + str(points))
 
     @commands.command()
     async def cashPoints(self, ctx, points: int):
@@ -53,4 +53,4 @@ class GoodBoyPoints(commands.Cog):
             return
         remainingPoints = yourPoints - points
         await self.config.member(ctx.author).GoodBoyPoints.set(remainingPoints)
-        await ctx.send(ctx.author.name + " has redeemed " + str(points) + " Good Boy Points! They have " + str(remainingPoints) + " left.")
+        await ctx.send(ctx.author.display_name + " has redeemed " + str(points) + " Good Boy Points! They have " + str(remainingPoints) + " left.")
