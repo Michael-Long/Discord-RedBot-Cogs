@@ -86,7 +86,3 @@ class StreamBingo(commands.Cog):
                 break
             await self.config.member(ctx.author).bingoCode.set(currCode)
         await ctx.send(ctx.author.mention + " Bingo Code: " + currCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
-
-    @commands.command()
-    async def testBingo(self, ctx):
-        await ctx.send("I can do stuff!")
