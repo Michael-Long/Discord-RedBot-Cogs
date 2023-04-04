@@ -51,7 +51,7 @@ class StreamBingo(commands.Cog):
         self.config.register_member(**default_member)
 
     @commands.command()
-    @commands.is_owner()
+    @checks.mod_or_permissions(manage_messages=True)
     async def resetUserBingo(self, ctx, userID):
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):
