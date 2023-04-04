@@ -69,7 +69,7 @@ class StreamBingo(commands.Cog):
 
     @commands.command()
     async def bingo(self, ctx):
-        currCode = self.config.member(ctx.author).bingoCode
+        currCode = await self.config.member(ctx.author).bingoCode
         if (len(currCode) == 0):
             while True:
                 # generate new code and put it into the table
