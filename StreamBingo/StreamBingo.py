@@ -6,6 +6,17 @@ import requests
 # Using Random to generate random bingo codes
 import random
 
+def updateCount():
+    # Query Bingo Database for Count
+    countPayload = {'count': True}
+    countRequest = requests.get('https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.php', params=countPayload)
+    count = 0
+    if (countRequest.status_code != 200):
+        print("Couldn't retrieve count information, setting count to 0")
+    else:
+        count = int(countRequest.text)
+    return count
+
 class StreamBingo(commands.Cog):
     """Stream Bingo Cog - Connects to Website to generate Bingo Boards"""
 
@@ -26,21 +37,10 @@ class StreamBingo(commands.Cog):
     ]
     count = 0
 
-    def updateCount():
-        # Query Bingo Database for Count
-        countPayload = {'count': True}
-        countRequest = requests.get('https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.php', params=countPayload)
-        self.count = 0
-        if (countRequest.status_code != 200):
-            print("Couldn't retrieve count information, setting count to 0")
-        else:
-            self.count = int(countRequest.text)
-
-
     def __init__(self, bot):
         self.bot = bot
 
-        updateCount()
+        self.count = updateCount()
 
         # Create Default Config
         self.config = Config.get_conf(self, identifier=7908234242)
@@ -97,5 +97,5 @@ class StreamBingo(commands.Cog):
         if (not isOwner):
             await ctx.send("You need proper permissions to run this command")
             return
-        updateCount()
+        self.count = updateCount()
         await ctx.send("Count updated to " + self.count + " bingo squares.")
