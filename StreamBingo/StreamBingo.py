@@ -64,12 +64,12 @@ class StreamBingo(commands.Cog):
             await ctx.send("No user found in this server with ID: " + userID)
             return
         
-        self.config.member(user).bingoCode.set("")
+        await self.config.member(user).bingoCode.set("")
         await ctx.send("Bingo Code has been cleared from " + user.name)
 
     @commands.command()
     async def bingo(self, ctx):
-        currCode = await self.config.member(ctx.author).bingoCode
+        currCode = await self.config.member(ctx.author).bingoCode()
         if (len(currCode) == 0):
             while True:
                 # generate new code and put it into the table
@@ -84,7 +84,7 @@ class StreamBingo(commands.Cog):
                     currCode = currCode + randEntryHex
                     pickedEntries.append(randEntry)
                 break
-            self.config.member(ctx.author).bingoCode.set(currCode)
+            await self.config.member(ctx.author).bingoCode.set(currCode)
         await ctx.send(ctx.author.mention + " Bingo Code: " + currCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
 
     @commands.command()
