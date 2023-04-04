@@ -18,6 +18,7 @@ class GoodBoyPoints(commands.Cog):
         self.config.register_member(**default_member)
 
     @commands.command()
+    @commands.guild_only()
     async def givepoints(self, ctx, friend: discord.Member, points: int):
         """Give points to a friend!"""
         if (friend.id == ctx.author.id):
@@ -43,6 +44,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send(ctx.author.display_name + " gave " + friend.display_name + " " + str(points) + " Good Boy Points!" + extraText)
 
     @commands.command()
+    @commands.guild_only()
     async def checkpoints(self, ctx, user: discord.Member = None):
         """Check your own or someone else's Good Boy Points"""
         if (user == None):
@@ -56,6 +58,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send(who + " Good Boy Points: " + str(points))
 
     @commands.command()
+    @commands.guild_only()
     async def cashpoints(self, ctx, points: int):
         """Cash in your good boy points"""
         yourPoints = await self.config.member(ctx.author).GoodBoyPoints()
@@ -67,9 +70,11 @@ class GoodBoyPoints(commands.Cog):
         await ctx.send(ctx.author.display_name + " has redeemed " + str(points) + " Good Boy Points! They have " + str(remainingPoints) + " left.")
 
     @commands.command()
+    @commands.guild_only()
     async def pointboard(self, ctx):
+        """See the top 5 people with the most Good Boy Points!"""
         allPoints = await self.config.all_members(ctx.guild)
-        sortedPoints = dict(sorted(allPoints.items(), key=lambda item: item[1]))
+        sortedPoints = dict(sorted(allPoints.items(), key=lambda i: i["GoodBoyPoints"]))
         board = ""
         count = 1
         for userID in sortedPoints:
