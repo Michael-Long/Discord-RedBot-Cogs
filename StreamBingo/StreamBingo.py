@@ -1,7 +1,6 @@
+from redbot.core import Config
 from redbot.core import commands
 
-# Using APSW for SQLite Database Management - https://rogerbinns.github.io/apsw/example.html
-import apsw
 # Using Requests to query website for bingo board row count
 import requests
 # Using Random to generate random bingo codes
@@ -26,8 +25,6 @@ class StreamBingo(commands.Cog):
         [5, 9, 30, 16, 20]
     ]
     count = 0
-    database = NULL
-    dbCursor = NULL
 
     def __init__(self, bot):
         self.bot = bot
@@ -42,17 +39,15 @@ class StreamBingo(commands.Cog):
             self.count = int(countRequest.text)
 
         # Establish Connection to Database
-        self.database = apsw.Connection("data/db.sqlite")
-        self.dbCursor = database.cursor()
-        if (len(list(dbCursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='bingo';"))) == 0):
-            self.dbCursor.execute("CREATE TABLE 'bingo' ('ServerID' TEXT, 'UserID' TEXT, 'BingoCode' TEXT);")
-        if (len(list(dbCursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='adminRoles';"))) == 0):
-            self.dbCursor.execute("CREATE TABLE 'adminRoles' ('ServerID' TEXT, 'AdminRoleID' TEXT);")
-        if (len(list(dbCursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='flags';"))) == 0):
-            self.dbCursor.execute("CREATE TABLE 'flags' ('ServerID' TEXT, 'JoinRoleID' TEXT, 'LoggingChannelID' TEXT, 'AllowBingo' INTEGER NOT NULL);")
+        self.config = Config.get_conf(self, identifier=7908234242)
+        default_member = {
+            "bingoCode": ""
+        }
+
+        self.config.register_member(**default_member)
 
     @commands.command()
-    async def resetUserBingo(self, ctx):
+    async def resetUserBingo(self, ctx, userID):
         isOwner = await ctx.bot.is_owner(ctx.author)
         if (not isOwner):
             await ctx.send("You need proper permissions to run this command")
@@ -69,33 +64,28 @@ class StreamBingo(commands.Cog):
             await ctx.send("No user found in this server with ID: " + userID)
             return
         
-        self.dbCursor.execute("delete from bingo where ServerID = ? and UserID = ?;", (ctx.guild.id, userID))
+        self.config.member(user).bingoCode.set("")
         await ctx.send("Bingo Code has been cleared from " + user.name)
 
     @commands.command()
     async def bingo(self, ctx):
-        allowBingo = list(self.dbCursor.execute("select AllowBingo from flags where ServerID = ?;", (ctx.guild.id, )))
-        if (len(allowBingo) > 0 and allowBingo[0][0] != 0):
-            userEntry = list(self.dbCursor.execute("select BingoCode from bingo where ServerID = ? and UserID = ?;", (ctx.guild.id, ctx.author.id)))
-            bingoCode = ""
-            if (len(userEntry) == 0):
-                while True:
-                    # generate new code and put it into the table
-                    pickedEntries = list()
-                    for index in range(24):
-                        randEntry = random.randint(0, count - 1)
-                        while pickedEntries.count(randEntry) > 0:
-                            randEntry = random.randint(0, count - 1)
-                        randEntryHex = hex(randEntry)[2:]
-                        while len(randEntryHex) < 4:
-                            randEntryHex = "0" + randEntryHex
-                        bingoCode = bingoCode + randEntryHex
-                        pickedEntries.append(randEntry)
-                    break
-                self.dbCursor.execute("insert into bingo (ServerID, UserID, BingoCode) values (?, ?, ?);", (ctx.guild.id, ctx.author.id, bingoCode))
-            else:
-                bingoCode = userEntry[0][0]
-            await ctx.send(ctx.author.mention + " Bingo Code: " + bingoCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
+        currCode = self.config.member(ctx.author).bingoCode
+        if (len(currCode) == 0):
+            while True:
+                # generate new code and put it into the table
+                pickedEntries = list()
+                for index in range(24):
+                    randEntry = random.randint(0, self.count - 1)
+                    while pickedEntries.count(randEntry) > 0:
+                        randEntry = random.randint(0, self.count - 1)
+                    randEntryHex = hex(randEntry)[2:]
+                    while len(randEntryHex) < 4:
+                        randEntryHex = "0" + randEntryHex
+                    currCode = currCode + randEntryHex
+                    pickedEntries.append(randEntry)
+                break
+            self.config.member(ctx.author).bingoCode.set(currCode)
+        await ctx.send(ctx.author.mention + " Bingo Code: " + currCode + "\nYou can view your bingo board here: https://michaeldoescoding.net/projects/pokemon/nuzlockebingo/index.html")
 
     @commands.command()
     async def testBingo(self, ctx):

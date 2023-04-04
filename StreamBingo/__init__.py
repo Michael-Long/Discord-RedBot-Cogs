@@ -1,4 +1,4 @@
-from .streambingo import StreamBingo
+from .StreamBingo import StreamBingo
 
 def setup(bot):
-    bot.add_cog(MyCog(bot))
+    bot.add_cog(StreamBingo(bot))
