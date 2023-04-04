@@ -1,5 +1,4 @@
-from redbot.core import Config
-from redbot.core import commands
+from redbot.core import checks, commands, Config
 
 # Using Requests to query website for bingo board row count
 import requests
