@@ -18,7 +18,7 @@ class GoodBoyPoints(commands.Cog):
         self.config.register_member(**default_member)
 
     @commands.command()
-    async def givePoints(self, ctx, friend: discord.Member, points):
+    async def givePoints(self, ctx, friend: discord.Member, points: int):
         """Give points to a friend!"""
         if (friend.id == ctx.author.id):
             await ctx.send("You can't give yourself point, dingus.")
@@ -45,7 +45,7 @@ class GoodBoyPoints(commands.Cog):
             await ctx.send(user.name + "'s Good Boy Points: " + str(points))
 
     @commands.command()
-    async def cashPoints(self, ctx, points):
+    async def cashPoints(self, ctx, points: int):
         """Cash in your good boy points"""
         yourPoints = await self.config.member(ctx.author).GoodBoyPoints()
         if (points > yourPoints):
