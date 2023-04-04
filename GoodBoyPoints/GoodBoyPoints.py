@@ -1,5 +1,6 @@
 from redbot.core import checks, commands, Config
 
+import discord
 import random
 
 class GoodBoyPoints(commands.Cog):
