@@ -32,7 +32,7 @@ class GoodBoyPoints(commands.Cog):
         else:
             currPoints = await self.config.member(friend).GoodBoyPoints()
             await self.config.member(friend).GoodBoyPoints.set(currPoints + points)
-            await ctx.send(ctx.author.name + " gave " + friend.mention + " " + str(points) + " Good Boy Points!")
+            await ctx.send(ctx.author.name + " gave " + friend.name + " " + str(points) + " Good Boy Points!")
 
     @commands.command()
     async def checkPoints(self, ctx, user: discord.Member = None):
@@ -49,7 +49,7 @@ class GoodBoyPoints(commands.Cog):
         """Cash in your good boy points"""
         yourPoints = await self.config.member(ctx.author).GoodBoyPoints()
         if (points > yourPoints):
-            await ctx.send("You only have " + yourPoints + " Good Boy Points... Collect or beg for some more!")
+            await ctx.send("You only have " + str(yourPoints) + " Good Boy Points... Collect or beg for some more!")
             return
         remainingPoints = yourPoints - points
         await self.config.member(ctx.author).GoodBoyPoints.set(remainingPoints)
