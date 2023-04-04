@@ -98,4 +98,4 @@ class StreamBingo(commands.Cog):
             await ctx.send("You need proper permissions to run this command")
             return
         self.count = updateCount()
-        await ctx.send("Count updated to " + self.count + " bingo squares.")
+        await ctx.send("Count updated to " + str(self.count) + " bingo squares.")
