@@ -74,12 +74,12 @@ class GoodBoyPoints(commands.Cog):
     async def pointboard(self, ctx):
         """See the top 5 people with the most Good Boy Points!"""
         allPoints = await self.config.all_members(ctx.guild)
-        sortedPoints = dict(sorted(allPoints.items(), key=lambda i: i["GoodBoyPoints"]))
+        sortedPoints = dict(sorted(allPoints.items(), key=lambda i: i[1]["GoodBoyPoints"], reverse=True))
         board = ""
         count = 1
-        for userID in sortedPoints:
+        for userID, data in sortedPoints.items():
             user = await ctx.guild.fetch_member(userID)
-            board = board + str(count) + ": " + user.display_name + " - " + str(sortedPoints[userID]) + " Points\n"
+            board = board + str(count) + ": " + user.display_name + " - " + str(data["GoodBoyPoints"]) + " Points\n"
             count = count + 1
             if (count > 5):
                 break
