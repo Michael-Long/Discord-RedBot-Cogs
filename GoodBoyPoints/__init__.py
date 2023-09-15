@@ -1,4 +1,4 @@
 from .GoodBoyPoints import GoodBoyPoints
 
-def setup(bot):
-    bot.add_cog(GoodBoyPoints(bot))
+async def setup(bot):
+    await bot.add_cog(GoodBoyPoints(bot))

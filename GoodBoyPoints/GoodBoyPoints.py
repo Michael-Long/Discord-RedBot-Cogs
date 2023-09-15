@@ -1,7 +1,6 @@
 from redbot.core import checks, commands, Config
 
 import discord
-import random
 
 class GoodBoyPoints(commands.Cog):
     """Good Boy Points Cog - Reward your friends with the points they deserve!"""
