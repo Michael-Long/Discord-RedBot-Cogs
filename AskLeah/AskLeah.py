@@ -26,7 +26,8 @@ class AskLeah(commands.Cog):
         "The fuck did you just ask me?",
         "HELLLLLL NO",
         "Excuse me?",
-        "Meow?"
+        "Meow?",
+        "I don't know, I'm just a lil bean"
     ]
 
     def __init__(self, bot):
