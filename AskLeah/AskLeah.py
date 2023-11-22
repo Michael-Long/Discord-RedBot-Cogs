@@ -25,7 +25,8 @@ class AskLeah(commands.Cog):
         "OMG YES",
         "The fuck did you just ask me?",
         "HELLLLLL NO",
-        "Excuse me?"
+        "Excuse me?",
+        "Meow?"
     ]
 
     def __init__(self, bot):
@@ -33,7 +34,7 @@ class AskLeah(commands.Cog):
 
     @commands.command()
     @commands.guild_only()
-    async def leah(self, ctx, friend: discord.Member, points: int):
+    async def leah(self, ctx):
         """Ask Leah!"""
         await ctx.send("`" + choice(self.answers) + "`")
 
