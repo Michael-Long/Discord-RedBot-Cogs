@@ -27,7 +27,16 @@ class AskLeah(commands.Cog):
         "HELLLLLL NO",
         "Excuse me?",
         "Meow?",
-        "I don't know, I'm just a lil bean"
+        "I don't know, I'm just a lil bean",
+        "As long as nobody gets hurt",
+        "Commit the violence",
+        "I don't see how food is involved.",
+        "I must consult the sacred texts, ask again soon.",
+        "I see this as an opportunity",
+        ">:3 yes",
+        ">:( no",
+        "Bitch why are you asking me?",
+        "*incoherent screaming*"
     ]
 
     def __init__(self, bot):
