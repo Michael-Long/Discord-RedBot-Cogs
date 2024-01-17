@@ -4,7 +4,20 @@ Various cogs made for my [Discord-RedBot](https://github.com/Cog-Creators/Red-Di
 
 ## Installation
 
-I need to figure this out myself lol
+Add the repo to your instance:
+```
+[p]repo add LeahCogs https://github.com/mFireworks/LeahCogs
+```
+
+Add whichever cogs you'd like:
+```
+[p]cog install LeahCogs [CogName]
+```
+
+Load the installed cog:
+```
+[p]load [CogName]
+```
 
 ## Cogs
 
