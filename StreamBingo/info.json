@@ -1,0 +1,8 @@
+{
+    "name" : "StreamBingo",
+    "author" : ["Fireworks (.fireworks)"],
+    "install_msg" : "Thanks for installing StreamBingo! This isn't really usable without https://github.com/mFireworks/Viewer-Bingo setup properly, so be sure you know what you're doing before using this.",
+    "short" : "Personal Project for generating codes for bingo boards",
+    "description" : "Personal project for generating bingo board codes for my Viewer Bingo project, to let viewers generate boards that'll get filled in as a stream progresses.",
+    "end_user_data_statement": "This cog does store ServerIDs and MemberIDs persistently, that way viewer's boards are kept track even after restarts. This data can be found in the `settings.json` of this cog in your bot's data directory."
+}

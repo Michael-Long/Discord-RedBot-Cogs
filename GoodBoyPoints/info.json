@@ -1,0 +1,8 @@
+{
+    "name" : "GoodBoyPoints",
+    "author" : ["Fireworks (.fireworks)"],
+    "install_msg" : "Thanks for installing GoodBoyPoints! This hasn't really been used all that much, so there could be some bugs with it. Please report any bugs you may encounter on the Github page.",
+    "short" : "Give your friends points for being good!",
+    "description" : "Give your friends Good Boy Points for not being cringe! Hopefully you get enough points to reach the top of the leaderboard!",
+    "end_user_data_statement": "This cog does store ServerIDs and MemberIDs persistently, that way the points are kept track even after restarts. This data can be found in the `settings.json` of this cog in your bot's data directory."
+}

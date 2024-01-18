@@ -1,0 +1,8 @@
+{
+    "name" : "AskLeah",
+    "author" : ["Fireworks (.fireworks)"],
+    "install_msg" : "You can now ask Leah any questions you may have! Though her response may not be what you want to hear...",
+    "short" : "Ask Leah Anything",
+    "description" : "Just like the 8ball command, but with custom responses to give her some character.",
+    "end_user_data_statement": "This cog does not persistently store data or metadata about users."
+}
