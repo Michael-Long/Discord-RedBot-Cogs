@@ -1,8 +1,8 @@
 {
     "author" : ["Fireworks (.fireworks)"],
-    "install_msg" : "Thanks for installing LeahCogs! This is more of a personal project, so it may not be testing throughly, but if you encounter an bugs, please report them to the GitHub Issues!",
+    "install_msg" : "Thanks for installing LeahCogs! This is more of a personal project, so it may not be tested all that much, but if you encounter an bugs, please report them to the GitHub Issues!",
     "name" : "LeahCogs",
     "short" : "Some cogs made for my personal instance of Discord-RedBot",
-    "description" : "Some congs made for my personal instance of Discord-RedBot, just a way for us to customize our experience through our bot. LeahBot was named after my cat, Leah. You can find the GitHub repo at: https://github.com/mFireworks/LeahCogs",
+    "description" : "Some cogs made for my personal instance of Discord-RedBot, just a way for us to customize our experience through our bot. If you encounter an bugs, please report them to the GitHub Issues! LeahBot was named after my cat, Leah.",
     "tags" : [""]
 }
